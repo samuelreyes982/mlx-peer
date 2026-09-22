@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlx-peer-experiment"
+version = "0.1.0"
+description = "Capacity-first Mac/iPhone model partitioning experiments for MLX"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+runtime = ["mlx==0.31.1", "mlx-lm==0.31.1", "numpy==2.5.3", "safetensors==0.8.0"]
+test = ["pytest>=8,<10"]
+
+[project.urls]
+Repository = "https://github.com/samuelreyes982/mlx-peer"
+Documentation = "https://github.com/samuelreyes982/mlx-peer#readme"
+Issues = "https://github.com/samuelreyes982/mlx-peer/issues"
+
+[project.scripts]
+mlx-peer = "mlx_peer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

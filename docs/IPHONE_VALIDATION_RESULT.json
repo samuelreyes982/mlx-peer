@@ -1,0 +1,129 @@
+{
+  "milestone": "Physical iPhone executes a real model shard and matches saved Mac references",
+  "device": {
+    "model": "iPhone 16",
+    "os": "iOS 27.0",
+    "build": "24A437",
+    "connection_for_deployment_and_file_transfer": "USB (devicectl reported wired)"
+  },
+  "app_installed_and_launched": true,
+  "self_test": {
+    "availableProcessMemoryBytes": 3495819520,
+    "elapsedMilliseconds": 1485.136791666264,
+    "maximumAbsoluteDifference": 0,
+    "mlxActiveBytes": 39940,
+    "mlxCacheBytes": 11360,
+    "mlxPeakBytes": 48673,
+    "passed": true,
+    "runtime": "mlx-swift 0.31.6 (MLX 0.31.1)",
+    "scope": "Tiny Qwen2 cache consistency only. No network, no capacity claim, no independent reference.",
+    "system": "Version 27.0 (Build 24A437)",
+    "tolerance": 0.0001
+  },
+  "real_shard": {
+    "model": "Qwen2.5-0.5B",
+    "weight_dtype": "float16",
+    "layer_start": 4,
+    "layer_end_exclusive": 8,
+    "weight_bytes": 119299072,
+    "runtime": "mlx-swift 0.31.6 (MLX 0.31.1)",
+    "steps": [
+      {
+        "computeMilliseconds": 779.6462083333608,
+        "dtype": "float16",
+        "input": "input-0.safetensors",
+        "mlxActiveBytes": 119327232,
+        "mlxPeakBytes": 121983771,
+        "output": "output-0.safetensors",
+        "position": 0,
+        "shape": [
+          1,
+          5,
+          896
+        ]
+      },
+      {
+        "computeMilliseconds": 50.545583333587274,
+        "dtype": "float16",
+        "input": "input-1.safetensors",
+        "mlxActiveBytes": 119314944,
+        "mlxPeakBytes": 121983771,
+        "output": "output-1.safetensors",
+        "position": 5,
+        "shape": [
+          1,
+          1,
+          896
+        ]
+      },
+      {
+        "computeMilliseconds": 17.026583333063172,
+        "dtype": "float16",
+        "input": "input-2.safetensors",
+        "mlxActiveBytes": 119335424,
+        "mlxPeakBytes": 121983771,
+        "output": "output-2.safetensors",
+        "position": 6,
+        "shape": [
+          1,
+          3,
+          896
+        ]
+      }
+    ],
+    "input_and_weight_roundtrip_sha256_verified": true,
+    "python_reference_comparison": {
+      "test": "python-swift-stage-parity",
+      "execution_location": "see Swift report.json",
+      "capacity_demonstrated": false,
+      "passed": true,
+      "rtol": 0.01,
+      "atol": 0.01,
+      "steps": [
+        {
+          "position": 0,
+          "max_absolute_error": 0.0078125,
+          "passed": true
+        },
+        {
+          "position": 5,
+          "max_absolute_error": 0.00390625,
+          "passed": true
+        },
+        {
+          "position": 6,
+          "max_absolute_error": 0.00390625,
+          "passed": true
+        }
+      ]
+    }
+  },
+  "observed_process_memory_headroom_bytes": 3495819520,
+  "validated_large_shard_memory_budget_bytes": null,
+  "memory_observation_scope": "Available-process-memory estimate immediately after a tiny self-test; not installed RAM or a sustained allocation guarantee.",
+  "qwen38_storage_candidates": [
+    {
+      "start": 0,
+      "end_exclusive": 8,
+      "stored_bytes": 1712808576,
+      "stored_gib": 1.5951772928237915
+    },
+    {
+      "start": 0,
+      "end_exclusive": 10,
+      "stored_bytes": 2144138752,
+      "stored_gib": 1.996884822845459
+    },
+    {
+      "start": 0,
+      "end_exclusive": 12,
+      "stored_bytes": 2569212864,
+      "stored_gib": 2.3927659392356873
+    }
+  ],
+  "candidate_scope": "Exact stored tensor bytes from installed 4-bit checkpoint headers; no Qwen3.8 layers have executed on the phone.",
+  "network_generation_implemented": false,
+  "qwen38_adapter_implemented": false,
+  "qwen38_capacity_gain_demonstrated": false,
+  "artifacts": "artifacts/iphone-validation-20260915-01"
+}

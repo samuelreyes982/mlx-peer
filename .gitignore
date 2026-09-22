@@ -1,0 +1,29 @@
+# Python and packaging
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+# Generated models, fixtures, and local credentials
+artifacts/
+models/
+*.safetensors
+*.gguf
+.env
+.env.*
+wire-token.txt
+*.pem
+*.key
+*.mobileprovision
+# Apple development output and local signing state
+.DS_Store
+ios/.build/
+ios/.upstream-*/
+ios/DerivedData*/
+ios/.swiftpm/
+ios/**/xcuserdata/
+*.xcuserstate
+*.log
+*.profraw

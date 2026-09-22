@@ -1,0 +1,250 @@
+{
+  "experiment": "Qwen3.8-27B Mac+iPhone five-prompt functional retest",
+  "date": "2026-09-16",
+  "status": "functional_smoke_checks_passed_with_higher_swap_allowance",
+  "functional_cases_completed": 5,
+  "automated_checks_passed": true,
+  "numerical_stage_validation_passed": false,
+  "capacity_gain_proven": false,
+  "general_quality_benchmark_performed": false,
+  "physical_devices": 2,
+  "usb_only": true,
+  "model": "mlx-community/Qwen3.8-27B-4bit",
+  "revision": "3e6447f082e89cc7f0bc6e5441afd38dfce760ff",
+  "phone_layer_range": [
+    0,
+    12
+  ],
+  "end_exclusive": true,
+  "phone_weight_bytes": 2569212864,
+  "mac_weight_bytes": 12563589184,
+  "cases": [
+    {
+      "case_id": "multiplication",
+      "prompt": "Calculate 17 times 23. Respond only with the integer.",
+      "prompt_tokens": 27,
+      "generated_token_ids": [
+        18,
+        24,
+        16,
+        248046
+      ],
+      "generation_tokens": 4,
+      "first_token_after_generation_start_seconds": 6.657704916997318,
+      "generation_seconds": 7.492396708999877,
+      "decode_tokens_per_second": 3.5941410095845328,
+      "finish_reason": "stop",
+      "response": "391",
+      "assessment": {
+        "checks": {
+          "finished_at_eos": true,
+          "nonempty_answer": true,
+          "expected_text": true
+        },
+        "passed": true,
+        "manual_quality_review_required": false
+      },
+      "phone_requests": 4,
+      "phone_min_headroom_bytes": 884093408
+    },
+    {
+      "case_id": "marbles",
+      "prompt": "Mira has 4 red marbles and 7 blue marbles. She gives away 2 blue marbles. How many marbles does she have left? Respond only with the integer.",
+      "prompt_tokens": 51,
+      "generated_token_ids": [
+        24,
+        248046
+      ],
+      "generation_tokens": 2,
+      "first_token_after_generation_start_seconds": 1.605677375002415,
+      "generation_seconds": 1.9858266250012093,
+      "decode_tokens_per_second": 2.6305457659147593,
+      "finish_reason": "stop",
+      "response": "9",
+      "assessment": {
+        "checks": {
+          "finished_at_eos": true,
+          "nonempty_answer": true,
+          "expected_text": true
+        },
+        "passed": true,
+        "manual_quality_review_required": false
+      },
+      "phone_requests": 2,
+      "phone_min_headroom_bytes": 857895368
+    },
+    {
+      "case_id": "json",
+      "prompt": "Return a JSON object with exactly two fields: status set to the string ok, and count set to the integer 3. Return only JSON, with no explanation or markdown.",
+      "prompt_tokens": 47,
+      "generated_token_ids": [
+        4754,
+        2738,
+        3147,
+        547,
+        2129,
+        1767,
+        763,
+        18,
+        92,
+        248046
+      ],
+      "generation_tokens": 10,
+      "first_token_after_generation_start_seconds": 1.372474334002618,
+      "generation_seconds": 3.8760158340010094,
+      "decode_tokens_per_second": 3.594907454102831,
+      "finish_reason": "stop",
+      "response": "{\"status\":\"ok\",\"count\":3}",
+      "assessment": {
+        "checks": {
+          "finished_at_eos": true,
+          "nonempty_answer": true,
+          "expected_json": true
+        },
+        "passed": true,
+        "manual_quality_review_required": false
+      },
+      "phone_requests": 10,
+      "phone_min_headroom_bytes": 837005768
+    },
+    {
+      "case_id": "repeat_multiplication",
+      "prompt": "Calculate 17 times 23. Respond only with the integer.",
+      "prompt_tokens": 27,
+      "generated_token_ids": [
+        18,
+        24,
+        16,
+        248046
+      ],
+      "generation_tokens": 4,
+      "first_token_after_generation_start_seconds": 0.807972416998382,
+      "generation_seconds": 1.603582625000854,
+      "decode_tokens_per_second": 3.770690684741288,
+      "finish_reason": "stop",
+      "response": "391",
+      "assessment": {
+        "checks": {
+          "finished_at_eos": true,
+          "nonempty_answer": true,
+          "expected_text": true,
+          "same_tokens_after_reset": true
+        },
+        "passed": true,
+        "manual_quality_review_required": false
+      },
+      "phone_requests": 4,
+      "phone_min_headroom_bytes": 837677512
+    },
+    {
+      "case_id": "sky",
+      "prompt": "In one short sentence, explain why the sky appears blue.",
+      "prompt_tokens": 24,
+      "generated_token_ids": [
+        760,
+        12515,
+        7701,
+        6105,
+        1521,
+        22602,
+        89661,
+        314,
+        37728,
+        11,
+        1680,
+        430,
+        6105,
+        11,
+        513,
+        35742,
+        777,
+        13057,
+        539,
+        279,
+        16078,
+        1056,
+        4860,
+        89661,
+        13,
+        248046
+      ],
+      "generation_tokens": 26,
+      "first_token_after_generation_start_seconds": 0.783640124998783,
+      "generation_seconds": 7.6482200829996145,
+      "decode_tokens_per_second": 3.6418834295697735,
+      "finish_reason": "stop",
+      "response": "The sky appears blue because shorter wavelengths of sunlight, such as blue, are scattered more effectively by the atmosphere than longer wavelengths.",
+      "assessment": {
+        "checks": {
+          "finished_at_eos": true,
+          "nonempty_answer": true
+        },
+        "passed": true,
+        "manual_quality_review_required": true
+      },
+      "phone_requests": 26,
+      "phone_min_headroom_bytes": 830271944
+    }
+  ],
+  "manual_sky_review": {
+    "passed": true,
+    "criterion": "One sentence giving shorter blue wavelengths being scattered more effectively by the atmosphere as the reason the sky appears blue.",
+    "general_quality_claim": false
+  },
+  "mac_load_seconds": 3.7003171669966832,
+  "whole_monitored_process_seconds": 28.716052666000905,
+  "aggregate_decode_tokens_per_second_excluding_each_prefill": 3.603263876071461,
+  "mac_peak_mlx_bytes": 12709933810,
+  "phone_peak_mlx_bytes": 2607348506,
+  "phone_min_headroom_bytes": 830271944,
+  "phone_forward_requests": 46,
+  "first_attempt": {
+    "swap_guard_gib": 4,
+    "status": "guard_stopped_during_loading",
+    "observed_generated_tokens": 0,
+    "elapsed_seconds": 7.394800499998382,
+    "initial_system_swap_gib": 3.098818359375,
+    "additional_system_swap_gib_at_stop": 4.07568359375,
+    "cleanup_succeeded": true
+  },
+  "completed_attempt": {
+    "swap_guard_gib": 6,
+    "deadline_seconds": 180,
+    "initial_system_swap_gib": 7.22173828125,
+    "peak_additional_system_swap_gib": 3.187744140624999,
+    "cleanup_succeeded": true
+  },
+  "numerical_stage_checks": [
+    {
+      "position": 0,
+      "tokens": 5,
+      "max_absolute_error": 0.125,
+      "relative_rms_error": 0.006998451892286539,
+      "passed": false
+    },
+    {
+      "position": 5,
+      "tokens": 1,
+      "max_absolute_error": 0.5,
+      "relative_rms_error": 0.00936950370669365,
+      "passed": true
+    },
+    {
+      "position": 6,
+      "tokens": 3,
+      "max_absolute_error": 0.0625,
+      "relative_rms_error": 0.006380054168403149,
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "The first attempt failed the original 4 GiB additional-swap guard before producing any tokens.",
+    "The retry allowed 6 GiB additional swap but actually peaked at 3.19 GiB, below the original 4 GiB threshold. Its starting system swap had changed from 3.10 to 7.22 GiB; this was not a controlled repeat with identical OS memory conditions.",
+    "Initial 12-layer prefill numerical parity still fails at unchanged rtol=0.03 and atol=0.03; both cached steps pass.",
+    "Only five short prompts, with resets between cases; no long-context, sustained-stability or broad-quality validation.",
+    "OS paging state and file cache changed between attempts; timing is descriptive and no new Mac-only control was run."
+  ],
+  "raw_artifacts": "artifacts/qwen38-retest-20260916",
+  "test_plan": "experiments/functional_smoke.json",
+  "worker_stopped_after_run": true
+}

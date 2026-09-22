@@ -1,0 +1,131 @@
+{
+  "schema": "mlx-peer-experiment-plan",
+  "schema_version": 1,
+  "executable_configuration": false,
+  "hypothesis": "A fixed Qwen3.8-27B configuration can become usable by retaining and executing assigned weights and state on the iPhone, reducing the Mac's resident model requirements.",
+  "confirmed_model_family": "Qwen3.8-27B",
+  "user_reported_memory_requirement_gb": 24,
+  "memory_requirement_scope_verified": false,
+  "mac": {
+    "chip": "Apple M3 Pro",
+    "memory_gib": 18,
+    "macos": "26.7"
+  },
+  "phone": {
+    "model": "iPhone 16",
+    "target_ios": "27",
+    "verified_ios": "27.0",
+    "verified_build": "24A437",
+    "update_verified": true,
+    "developer_mode_enabled": true,
+    "measured_app_budget_bytes": null,
+    "worker_execution_verified": true,
+    "observed_process_memory_headroom_bytes": 3495819520,
+    "headroom_observation_scope": "After tiny self-test; not a measured sustained model budget"
+  },
+  "baseline": {
+    "application": "SiphonNet",
+    "display_name": "Qwen3.5-9B-MLX-4bit",
+    "checkpoint_id": null,
+    "context_limit": 8192,
+    "output_limit": 2048,
+    "status": "user_reported_working",
+    "measured_tokens_per_second": null
+  },
+  "failed_control": {
+    "user_model_description": "qwen 3.8 27b",
+    "checkpoint_id": null,
+    "quantization": null,
+    "status": "user_reported_no_response",
+    "failure_cause": "undetermined"
+  },
+  "recorded_mac_control": {
+    "report": "docs/MAC_BASELINE_RESULT.json",
+    "status": "guard_stopped_during_loading",
+    "generated_tokens_observed": 0,
+    "additional_system_swap_gib_at_stop": 4.341796875,
+    "out_of_memory_error_observed": false,
+    "siphonnet_application_reproduction": false
+  },
+  "provisional_target": {
+    "checkpoint_id": "mlx-community/Qwen3.8-27B-4bit",
+    "revision": "3e6447f082e89cc7f0bc6e5441afd38dfce760ff",
+    "revision_source": "Installed checkpoint's original download record; all weight SHA256s verified",
+    "same_as_failed_control_confirmed": false,
+    "model_type": "qwen3_5",
+    "quantization": {
+      "bits": 4,
+      "group_size": 64,
+      "mode": "affine"
+    },
+    "index_tensor_storage_bytes": 16054262240,
+    "metadata_fetched_only": false,
+    "local_existing_weights_reused": true,
+    "language_layers": 64,
+    "linear_attention_layers": 48,
+    "full_attention_layers": 16,
+    "phone_layer_range": {
+      "start": 0,
+      "end_exclusive": 12
+    },
+    "adapter_implemented": true,
+    "phone_layer_range_candidate": {
+      "start": 0,
+      "end_exclusive": 12,
+      "stored_weight_bytes": 2569212864,
+      "runtime_fit_verified": true,
+      "scope": "One short exploratory generation, not sustained or long-context stability."
+    }
+  },
+  "comparisons": [
+    "9B Mac-only: practical working baseline",
+    "27B Mac-only: controlled target baseline and failure diagnosis",
+    "same 27B configuration on Mac+iPhone: capacity experiment"
+  ],
+  "capacity_demonstrated": false,
+  "sources": [
+    "User-provided SiphonNet banner and runtime observations",
+    "https://huggingface.co/mlx-community/Qwen3.8-27B-4bit",
+    "https://huggingface.co/Qwen/Qwen3.8-27B",
+    "https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/models/qwen3_5.py"
+  ],
+  "recorded_9b_sanity": {
+    "report": "docs/MAC_9B_SANITY_RESULT.json",
+    "status": "completed",
+    "same_recorder_prompt_and_settings_as_27b": true,
+    "siphonnet_application_reproduction": false
+  },
+  "connection": {
+    "cable_user_reported": "Thunderbolt 4 USB-C cable",
+    "observed_device_connection": "USB; devicectl reports wired and IORegistry lists iPhone as IOUSBHostDevice",
+    "iphone_interface_specification": "USB 2 up to 480 Mb/s",
+    "source": "https://www.apple.com/iphone-16/specs/",
+    "measured_application_throughput_mbps": {
+      "mac_to_phone": 291.00942572392063,
+      "phone_to_mac": 341.9238368762343
+    },
+    "live_inference_transport_implemented": true,
+    "note": "Cable rating does not upgrade the phone port to Thunderbolt. Earlier fixture transfers used the wired developer-tool connection.",
+    "implementation_scope": "FP16 Qwen2 and affine-4bit/BF16 Qwen3.8 hybrid developer worker over USB",
+    "median_ping_roundtrip_ms": 0.46089550050965045
+  },
+  "recorded_usb_probe": {
+    "report": "docs/USB_PROBE_RESULT.json",
+    "model": "Qwen2.5-0.5B FP16",
+    "passed": true,
+    "capacity_gain_demonstrated": false
+  },
+  "recorded_hybrid_split": {
+    "report": "docs/QWEN38_SPLIT_RESULT.json",
+    "generation_completed": true,
+    "numerical_validation_passed": false,
+    "capacity_demonstrated": false
+  },
+  "recorded_functional_retest": {
+    "report": "docs/QWEN38_FUNCTIONAL_RETEST_RESULT.json",
+    "cases_completed": 5,
+    "functional_checks_passed": true,
+    "numerical_validation_passed": false,
+    "capacity_demonstrated": false
+  }
+}

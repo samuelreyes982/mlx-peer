@@ -1,0 +1,125 @@
+{
+  "experiment": "Qwen3.8-27B text generation across M3 Pro Mac and physical iPhone 16",
+  "status": "exploratory_generation_completed",
+  "physical_devices": 2,
+  "capacity_gain_proven": false,
+  "checkpoint": "mlx-community/Qwen3.8-27B-4bit",
+  "revision": "3e6447f082e89cc7f0bc6e5441afd38dfce760ff",
+  "quantization": {
+    "bits": 4,
+    "group_size": 64,
+    "mode": "affine"
+  },
+  "activation_dtype": "bfloat16",
+  "runtimes": {
+    "mlx_python": "0.31.1",
+    "mlx_lm": "0.31.1",
+    "mlx_swift": "0.31.6",
+    "swift_embedded_mlx": "0.31.1"
+  },
+  "partition": {
+    "phone_layers": [
+      0,
+      12
+    ],
+    "end_exclusive": true,
+    "mac_layers": [
+      12,
+      64
+    ],
+    "mac_keeps_embeddings_norm_head": true,
+    "vision_loaded": false,
+    "phone_weight_bytes": 2569212864,
+    "mac_weight_bytes": 12563589184,
+    "mac_never_constructed_phone_layers_in_usb_run": true
+  },
+  "prompt": "In one short sentence, explain why the sky appears blue.",
+  "prompt_tokens": 24,
+  "max_tokens": 64,
+  "context_limit": 8192,
+  "actual_long_context_tested": false,
+  "output": "The sky appears blue because shorter wavelengths of sunlight, such as blue, are scattered more effectively by the atmosphere than longer wavelengths.",
+  "generated_tokens_including_eos": 26,
+  "mac_load_seconds": 5.713072790997103,
+  "first_token_after_generation_start_seconds": 26.911562875000527,
+  "generation_seconds": 33.27588866699807,
+  "decode_tokens_per_second": 3.928145858188909,
+  "mac_mlx_peak_bytes": 12674806042,
+  "phone_mlx_peak_bytes": 2595825370,
+  "phone_min_available_process_memory_bytes": 883012064,
+  "phone_median_decode_compute_ms": 108.16299999896728,
+  "phone_median_decode_roundtrip_ms": 110.60704099872964,
+  "initial_system_swap_bytes": 6146752512.0,
+  "peak_additional_system_swap_gib": 3.8546777343750005,
+  "stage_numerical_validation": {
+    "passed": false,
+    "rtol": 0.03,
+    "atol": 0.03,
+    "checks": [
+      {
+        "position": 0,
+        "tokens": 5,
+        "max_absolute_error": 0.125,
+        "relative_rms_error": 0.006998451892286539,
+        "passed": false
+      },
+      {
+        "position": 5,
+        "tokens": 1,
+        "max_absolute_error": 0.5,
+        "relative_rms_error": 0.00936950370669365,
+        "passed": true
+      },
+      {
+        "position": 6,
+        "tokens": 3,
+        "max_absolute_error": 0.0625,
+        "relative_rms_error": 0.006380054168403149,
+        "passed": true
+      }
+    ],
+    "finding": "Mixed MLX 0.32.2/0.31.1 builds differed beginning at quantized matrix multiplication. Alignment removed those differences in the traced recurrent layers; the first full-attention output still differed at one BF16 value by 0.00390625. The 12-layer prefill comparison remains outside the original per-element tolerance.",
+    "interpretation": "Coherent text generation is not proof of numerical equivalence or broad model quality."
+  },
+  "matched_mac_only_control": {
+    "status": "additional_swap_guard_triggered_supervisor_cleanup_error",
+    "stop_reason": "additional_swap_guard",
+    "last_sample_elapsed_seconds": 9.726198124997609,
+    "initial_swap_bytes": 6041894912.0,
+    "last_sample_swap_bytes": 11133192765.44,
+    "additional_swap_gib_at_trigger": 4.7416406250000005,
+    "generated_tokens_observed": 0,
+    "worker_exit_code": null,
+    "supervisor_cleanup_error": "SIGTERM wait timed out; killpg SIGKILL and subsequent SIGTERM returned EPERM. Recorder exited without a final supervisor report.",
+    "followup": "A separate process-list check found no remaining record_hybrid_split.py worker. No fatal OOM was observed.",
+    "recovered_from": "Persisted events, memory samples, terminal traceback, and process-list follow-up; this is not an original supervisor result."
+  },
+  "guards": {
+    "max_additional_system_swap_gib": 4,
+    "deadline_seconds": 180,
+    "phone_available_memory_reserve_bytes": 402653184
+  },
+  "limitations": [
+    "One completed short exploratory generation; no sustained or long-context test.",
+    "12-layer prefill numerical parity has not passed; tolerances were not loosened.",
+    "Both OS memory starting states and file caches were uncontrolled; system swap includes other apps.",
+    "The matched Mac-only control triggered the swap guard; its supervisor cleanup failed and the result was recovered from persisted logs. No worker remained at the follow-up process check.",
+    "Initial MLX-LM baseline used MLX 0.32.2 and wired memory during generation only; current runs use 0.31.1 and the recommended wired limit during loading too.",
+    "No fatal out-of-memory error, validated quality gain, first-ever claim, or production readiness has been established."
+  ],
+  "prior_attempts": [
+    {
+      "artifact": "artifacts/qwen38-usb-generation-20260915-01",
+      "result": "Swap guard during loading before early wiring adjustment; zero tokens."
+    },
+    {
+      "artifact": "artifacts/qwen38-usb-generation-20260915-02",
+      "result": "CoreDevice launch/connection failure; no inference."
+    }
+  ],
+  "raw_generation_artifacts": "artifacts/qwen38-usb-generation-20260915-03",
+  "raw_validation_artifacts": "artifacts/qwen38-split12-mlx031",
+  "python_tests": 105,
+  "python_subtests": 25,
+  "swift_tests": 3
+}

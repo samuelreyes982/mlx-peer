@@ -1,0 +1,8 @@
+.build/
+DerivedData*/
+.swiftpm/
+.upstream-mlx-swift/
+build-*.log
+.build-resolve.log
+*.xcuserstate
+xcuserdata/

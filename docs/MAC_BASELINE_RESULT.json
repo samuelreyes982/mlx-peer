@@ -1,0 +1,47 @@
+{
+  "experiment": "Qwen3.8-27B Mac-only initial text diagnostic",
+  "status": "guard_stopped_during_loading",
+  "checkpoint_id": "mlx-community/Qwen3.8-27B-4bit",
+  "revision_from_local_download_record": "3e6447f082e89cc7f0bc6e5441afd38dfce760ff",
+  "all_weight_sha256s_match_local_download_record": true,
+  "model_storage_bytes": 16054541349,
+  "runtime_versions": {
+    "mlx": "0.32.2",
+    "mlx-lm": "0.31.1",
+    "transformers": "5.17.0",
+    "tokenizers": "0.23.2"
+  },
+  "device": "Apple M3 Pro, 18 GiB, macOS 26.7",
+  "physical_iphone_used": false,
+  "scope": "Offline MLX-LM text-only process using the installed SiphonNet model weights; not SiphonNet UI reproduction",
+  "max_output_tokens": 64,
+  "context_limit": 8192,
+  "thinking": false,
+  "prefill_step_size": 128,
+  "actual_prompt_token_count": null,
+  "timed_process_elapsed_seconds": 7.648385708000205,
+  "last_worker_event": "load_start",
+  "model_load_completed": false,
+  "generated_tokens_observed": 0,
+  "time_to_first_token_seconds": null,
+  "tokens_per_second": null,
+  "initial_system_swap_bytes": 0.0,
+  "last_sample_system_swap_bytes": 4661968896.0,
+  "additional_system_swap_gib_at_stop": 4.341796875,
+  "memory_free_percentage_reported_by_memory_pressure": {
+    "before": 55,
+    "last_sample": 15
+  },
+  "mlx_peak_allocation_bytes": null,
+  "stop_reason": "additional_swap_guard",
+  "exit_code": -15,
+  "out_of_memory_error_observed": false,
+  "interpretation": "The configured run caused substantial system paging during loading and hit the predeclared guard. It does not prove that a longer run cannot load or generate, nor measure the phone shard size needed.",
+  "limitations": [
+    "One short diagnostic attempt, not repeated trials or a long-context test.",
+    "System swap includes all applications, not only model memory.",
+    "File hashes were read before timing, so this is not a cold-disk benchmark.",
+    "Dedicated MLX-Peer environment; runtime equivalence with SiphonNet has not been established. This is not exact application failure reproduction."
+  ],
+  "raw_artifacts": "artifacts/mac-baseline-qwen38-27b-20260915-01"
+}

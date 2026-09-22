@@ -1,0 +1,10 @@
+{
+  "description": "Five short functional checks; not a general model-quality or capacity benchmark. Each case starts with cleared state on both devices.",
+  "cases": [
+    {"id": "multiplication", "prompt": "Calculate 17 times 23. Respond only with the integer.", "expected_text": "391"},
+    {"id": "marbles", "prompt": "Mira has 4 red marbles and 7 blue marbles. She gives away 2 blue marbles. How many marbles does she have left? Respond only with the integer.", "expected_text": "9"},
+    {"id": "json", "prompt": "Return a JSON object with exactly two fields: status set to the string ok, and count set to the integer 3. Return only JSON, with no explanation or markdown.", "expected_json": {"status": "ok", "count": 3}},
+    {"id": "repeat_multiplication", "prompt": "Calculate 17 times 23. Respond only with the integer.", "expected_text": "391", "same_tokens_as": "multiplication"},
+    {"id": "sky", "prompt": "In one short sentence, explain why the sky appears blue.", "manual_review": true}
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "transport": "usbmux, physically USB-connected device only",
+  "wifi_fallback": false,
+  "protocol_version": 1,
+  "scope": "Foreground debug build; application round trips and payload transfers. Not raw link speed or a 27B run.",
+  "worker": {
+    "config_sha256": "aafdf48220ca6d8bb953cb8fee685c5c178bbf1d7a87b8c959719b146693713e",
+    "dtype": "float16",
+    "end": 8,
+    "hidden_size": 896,
+    "max_context": 256,
+    "mlx_active_bytes": 119299072,
+    "ok": true,
+    "payload_bytes": 0,
+    "position": 0,
+    "protocol_version": 1,
+    "request_id": 1,
+    "start": 4,
+    "system": "Version 27.0 (Build 24A437)",
+    "weight_bytes": 119299072,
+    "weights_sha256": "2aebd0bbf58448d85130ab33fd877dc665777323b8081a190c58731126710877"
+  },
+  "ping": {
+    "samples": 100,
+    "median_ms": 0.46089550050965045,
+    "p95_ms": 0.6224579992704093,
+    "min_ms": 0.3186249996360857,
+    "max_ms": 0.715374999344931
+  },
+  "activation_sized_echo_10240_bytes_each_direction": {
+    "samples": 50,
+    "median_ms": 0.9628124998926069,
+    "p95_ms": 1.082999999198364,
+    "min_ms": 0.8088750000752043,
+    "max_ms": 1.101458001357969
+  },
+  "throughput": {
+    "upload": {
+      "payload_bytes": 8388608,
+      "repetitions": 8,
+      "median_MB_per_second": 36.37617821549008,
+      "samples_MB_per_second": [
+        36.48977931760693,
+        36.277656513277556,
+        37.121847811297236,
+        36.17630351995301,
+        35.99582476979588,
+        36.21260634601194,
+        36.4746999177026,
+        36.76648041152567
+      ]
+    },
+    "download": {
+      "payload_bytes": 8388608,
+      "repetitions": 8,
+      "median_MB_per_second": 42.74047960952929,
+      "samples_MB_per_second": [
+        41.81038797283663,
+        42.27488026583013,
+        42.73804782315857,
+        42.841151183083625,
+        42.78416775340995,
+        42.683763358597076,
+        42.87749234433431,
+        42.742911395900016
+      ]
+    }
+  },
+  "live_stage_reference_checks": [
+    {
+      "position": 0,
+      "roundtrip_ms": 56.218791998617235,
+      "phone_compute_ms": 53.01937500007625,
+      "max_absolute_error": 0.0078125,
+      "passed": true
+    },
+    {
+      "position": 5,
+      "roundtrip_ms": 7.8688749999855645,
+      "phone_compute_ms": 6.725166666910809,
+      "max_absolute_error": 0.00390625,
+      "passed": true
+    },
+    {
+      "position": 6,
+      "roundtrip_ms": 11.118832999272854,
+      "phone_compute_ms": 9.711541666547419,
+      "max_absolute_error": 0.00390625,
+      "passed": true
+    }
+  ],
+  "full_model_live_split_logits": {
+    "tolerances": {
+      "rtol": 0.02,
+      "atol": 0.05
+    },
+    "checks": [
+      {
+        "tokens": 5,
+        "max_absolute_error": 0.037109375,
+        "passed": true
+      },
+      {
+        "tokens": 1,
+        "max_absolute_error": 0.033203125,
+        "passed": true
+      },
+      {
+        "tokens": 3,
+        "max_absolute_error": 0.02734375,
+        "passed": true
+      }
+    ],
+    "mac_weight_bytes": 868766464,
+    "iphone_weight_bytes": 119299072,
+    "capacity_gain_demonstrated": false,
+    "scope": "Small trained model validation across two physical devices"
+  },
+  "live_split_generation": {
+    "prompt": "Question: Why is the sky blue?\nAnswer:",
+    "output": " The sky is blue because of the scattering of sunlight by tiny particles in the atmosphere.\n A single-select problem: Is the",
+    "generated_tokens": 24,
+    "total_seconds": 1.061854666999352,
+    "first_token_seconds": 0.5509990840000683,
+    "scope": "24-token base-model continuation only; not a quality benchmark or capacity demonstration"
+  },
+  "remote_request_timings": [
+    {
+      "roundtrip_ms": 24.709166998945875,
+      "compute_ms": 22.573958333850896
+    },
+    {
+      "roundtrip_ms": 12.38158300111536,
+      "compute_ms": 10.740791666648875
+    },
+    {
+      "roundtrip_ms": 14.460916001553414,
+      "compute_ms": 10.77033333331201
+    },
+    {
+      "roundtrip_ms": 341.1282500001107,
+      "compute_ms": 338.05995833336056
+    },
+    {
+      "roundtrip_ms": 5.871792000107234,
+      "compute_ms": 4.594541666847363
+    },
+    {
+      "roundtrip_ms": 5.732665998948505,
+      "compute_ms": 4.705541666226054
+    },
+    {
+      "roundtrip_ms": 5.928417000177433,
+      "compute_ms": 4.770125000504777
+    },
+    {
+      "roundtrip_ms": 6.535874999826774,
+      "compute_ms": 5.320791667145386
+    },
+    {
+      "roundtrip_ms": 6.826875000115251,
+      "compute_ms": 5.579541666520527
+    },
+    {
+      "roundtrip_ms": 7.770791000439203,
+      "compute_ms": 6.735250000019732
+    },
+    {
+      "roundtrip_ms": 8.011750000150641,
+      "compute_ms": 6.773125000108848
+    },
+    {
+      "roundtrip_ms": 9.55545899887511,
+      "compute_ms": 8.102875000076892
+    },
+    {
+      "roundtrip_ms": 10.669790999600082,
+      "compute_ms": 9.108875000492844
+    },
+    {
+      "roundtrip_ms": 10.14825000129349,
+      "compute_ms": 8.920499999476306
+    },
+    {
+      "roundtrip_ms": 11.150959000588045,
+      "compute_ms": 9.715999999571068
+    },
+    {
+      "roundtrip_ms": 11.995875000138767,
+      "compute_ms": 10.60520833289047
+    },
+    {
+      "roundtrip_ms": 10.694583999793394,
+      "compute_ms": 9.39770833338116
+    },
+    {
+      "roundtrip_ms": 11.390417001166497,
+      "compute_ms": 9.799166666198289
+    },
+    {
+      "roundtrip_ms": 9.832707999521517,
+      "compute_ms": 8.637750000161759
+    },
+    {
+      "roundtrip_ms": 9.454958999413066,
+      "compute_ms": 8.293291666632285
+    },
+    {
+      "roundtrip_ms": 10.473416999957408,
+      "compute_ms": 9.164041666736011
+    },
+    {
+      "roundtrip_ms": 10.704999998779385,
+      "compute_ms": 9.47474999975384
+    },
+    {
+      "roundtrip_ms": 12.119249999159365,
+      "compute_ms": 10.638541666594392
+    },
+    {
+      "roundtrip_ms": 11.101915999461198,
+      "compute_ms": 9.841916667028272
+    },
+    {
+      "roundtrip_ms": 12.253042001248104,
+      "compute_ms": 10.814041666890262
+    },
+    {
+      "roundtrip_ms": 11.184458000570885,
+      "compute_ms": 9.92279166712251
+    },
+    {
+      "roundtrip_ms": 10.237666001557955,
+      "compute_ms": 8.848333333844494
+    }
+  ],
+  "passed": true,
+  "failure_checks": {
+    "invalid_token_rejected": true,
+    "invalid_cache_position_rejected": true,
+    "cache_reset_on_reconnect": true,
+    "partial_frame_disconnect_recovered": true,
+    "fresh_stage_output_after_failures_matches_reference": true
+  },
+  "model": "Qwen2.5-0.5B converted to FP16",
+  "measured_on": "M3 Pro 18 GiB Mac + iPhone 16 iOS 27.0 over USB",
+  "qwen38_27b_capacity_demonstrated": false,
+  "artifacts": "artifacts/usb-probe-20260915",
+  "source_sha256": {
+    "scripts/benchmark_usb.py": "05e0f019f0c802c6a078f1aa01196ed6876c125d61a2315a162f9d63b3e18432",
+    "src/mlx_peer/wire.py": "c0281b9ee8eab6c6c0b4f19836575486fac1375862bb377c8c098abc3c545d27",
+    "ios/Sources/MLXPeerWorker/WireServer.swift": "30eb09b0a4deda6a88d81f17a853eb7c7a32a358fb06e5f7be27a59457075c83"
+  },
+  "tolerances_predeclared_before_run": true,
+  "limitations": [
+    "One foreground debug-build session; no sustained thermal or long-context test.",
+    "Upload timing includes phone SHA256 computation; all rates are application payload rates, not raw USB signaling.",
+    "Small-model continuation is truncated at 24 tokens and is not a quality benchmark.",
+    "No matched Mac-only speed benchmark was collected for the 0.5B model in this run.",
+    "Full-model FP16 parity tolerances differ from stage-only tolerances; exact bitwise equality is not claimed."
+  ]
+}
