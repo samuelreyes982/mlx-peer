@@ -6,8 +6,24 @@
   "outputDirectory": "public",
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.mlx-peer.com"
+        }
+      ],
+      "destination": "https://mlx-peer.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.mlx-peer.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.mlx-peer.com"
+        }
+      ],
       "destination": "https://mlx-peer.com/:path*",
       "permanent": true
     }
