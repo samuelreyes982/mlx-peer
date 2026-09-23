@@ -4,7 +4,7 @@
 
 The **0.2 companion preview** adds a native Mac chat app, an iPhone pairing screen, one-time USB pairing, automatic model preparation, and verified, resumable model transfers. Choose a supported local Qwen2 / Qwen2.5 folder on your Mac; the iPhone computes its assigned layers while the Mac runs the rest.
 
-[Website](https://mlx-peer.vercel.app) · [Download the Mac preview](https://github.com/samuelreyes982/mlx-peer/releases) · [Install and pair](docs/COMPANION.md) · [Build the iPhone app](ios/README.md#run-on-a-physical-iphone)
+[Website](https://mlx-peer.com) · [Download the Mac preview](https://github.com/samuelreyes982/mlx-peer/releases) · [Install and pair](docs/COMPANION.md) · [Build the iPhone app](ios/README.md#run-on-a-physical-iphone)
 
 **A direct USB cable connection is required. Wi-Fi inference is not supported.** For conversations, choose a supported **Instruct** checkpoint; base checkpoints are intended for text completion.
 

@@ -3,5 +3,13 @@
   "framework": null,
   "buildCommand": "",
   "installCommand": "",
-  "outputDirectory": "public"
+  "outputDirectory": "public",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.mlx-peer.com" }],
+      "destination": "https://mlx-peer.com/:path*",
+      "permanent": true
+    }
+  ]
 }
