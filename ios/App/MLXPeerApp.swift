@@ -4,7 +4,122 @@ import MLXPeerWorker
 
 @main
 struct MLXPeerApp: App {
-    var body: some Scene { WindowGroup { WorkerView() } }
+    var body: some Scene {
+        WindowGroup {
+            if ProcessInfo.processInfo.arguments.contains(where: { ["--run-self-test", "--run-fixture", "--serve-fixture"].contains($0) }) {
+                WorkerView()
+            } else { CompanionView() }
+        }
+    }
+}
+
+@MainActor
+final class CompanionViewModel: ObservableObject {
+    @Published var active = false
+    @Published var stopping = false
+    @Published var paired = false
+    @Published var code = ""
+    @Published var status = "Connect your iPhone to your Mac with a USB cable."
+    private var server: CompanionServer?
+    private var root: URL {
+        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Companion", isDirectory: true)
+    }
+    func start() {
+        guard !active, !stopping else { return }
+        do {
+            let service = try CompanionServer(root: root)
+            server = service; code = service.pairingCode; paired = service.isPaired; active = true
+            UIApplication.shared.isIdleTimerDisabled = true
+            #if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("--companion-test-report") {
+                let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("companion-test-pairing.json")
+                let data = try JSONSerialization.data(withJSONObject: ["code": service.pairingCode, "peer_id": service.peerID, "paired": service.isPaired])
+                try data.write(to: url, options: [.atomic, .completeFileProtection])
+            }
+            #endif
+            DispatchQueue.global(qos: .userInitiated).async {
+                var failure: String?
+                do {
+                    try service.run { message in
+                        DispatchQueue.main.async { self.status = message; self.paired = service.isPaired }
+                    }
+                } catch { failure = error.localizedDescription }
+                let result = failure
+                DispatchQueue.main.async {
+                    self.active = false; self.stopping = false
+                    UIApplication.shared.isIdleTimerDisabled = false
+                    if let result { self.status = result }
+                }
+            }
+        } catch { status = error.localizedDescription; active = false; UIApplication.shared.isIdleTimerDisabled = false }
+    }
+    func stop() {
+        guard active else { return }
+        stopping = true; status = "Stopping sharing…"; server?.stop()
+        UIApplication.shared.isIdleTimerDisabled = false
+    }
+    func forget() {
+        guard !active, !stopping else { return }
+        do {
+            let service = try CompanionServer(root: root)
+            try service.forgetPairing(); server = service; paired = false; code = service.pairingCode
+            status = "Previous Mac forgotten. Start sharing to show a new code."
+        } catch { status = error.localizedDescription }
+    }
+    func removeModels() {
+        guard !active, !stopping else { return }
+        do { try CompanionServer(root: root).removeModels(); status = "Saved models removed from this iPhone." }
+        catch { status = error.localizedDescription }
+    }
+}
+
+struct CompanionView: View {
+    @StateObject private var model = CompanionViewModel()
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var confirmRemoval = false
+    @State private var confirmForget = false
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 26) {
+                    HStack(spacing: 18) {
+                        Image(systemName: "laptopcomputer").font(.system(size: 42))
+                        Image(systemName: "cable.connector.horizontal").foregroundStyle(.blue)
+                        Image(systemName: "iphone").font(.system(size: 42))
+                    }.frame(maxWidth: .infinity).padding(.vertical, 20).foregroundStyle(.blue)
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("A little more intelligence.\nWith what you own.").font(.largeTitle.bold())
+                        Text("Your Mac and iPhone share a local model. Your iPhone runs part of the computation over USB.").foregroundStyle(.secondary)
+                    }
+                    VStack(alignment: .leading, spacing: 16) {
+                        Label(model.paired ? "Mac paired" : "Pair your Mac", systemImage: model.paired ? "checkmark.shield.fill" : "link").font(.headline)
+                        if model.active && !model.paired {
+                            Text(model.code).font(.system(size: 44, weight: .semibold, design: .monospaced)).tracking(6).accessibilityLabel("Pairing code \(model.code)")
+                            Text("Enter this code in MLX Peer on your Mac. The code expires after five minutes; restart sharing for a new code.").font(.footnote).foregroundStyle(.secondary)
+                        }
+                        Text(model.status).font(.callout).accessibilityIdentifier("connectionStatus")
+                        Button(model.active ? "Stop sharing" : "Start sharing") { model.active ? model.stop() : model.start() }
+                            .buttonStyle(.borderedProminent).disabled(model.stopping)
+                    }.padding(20).frame(maxWidth: .infinity, alignment: .leading).background(.blue.opacity(0.07), in: RoundedRectangle(cornerRadius: 20))
+                    VStack(alignment: .leading, spacing: 12) {
+                        Label("Keep this app open and the phone unlocked.", systemImage: "sun.max")
+                        Label("Choose your model on the Mac. Transfers are automatic.", systemImage: "folder")
+                        Label("No cloud inference or account required.", systemImage: "lock.shield")
+                    }.font(.subheadline).foregroundStyle(.secondary)
+                    VStack(alignment: .leading, spacing: 12) {
+                        Button("Pair a new Mac") { confirmForget = true }.disabled(model.active || model.stopping)
+                        Button("Remove saved models", role: .destructive) { confirmRemoval = true }.disabled(model.active || model.stopping)
+                        Text("Stop sharing to manage pairing and storage. Preview 0.2 · Qwen2 / Qwen2.5 · FP16").font(.caption).foregroundStyle(.secondary)
+                    }
+                }.padding(24)
+            }.navigationTitle("MLX Peer")
+        }
+        .onAppear { model.start() }
+        .onChange(of: scenePhase) { _, phase in if phase == .background { model.stop() } }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didReceiveMemoryWarningNotification)) { _ in model.stop() }
+        .confirmationDialog("Forget the current Mac?", isPresented: $confirmForget, titleVisibility: .visible) { Button("Forget Mac", role: .destructive) { model.forget() } }
+        .confirmationDialog("Remove saved model files? Your Mac's original files stay on your Mac.", isPresented: $confirmRemoval, titleVisibility: .visible) { Button("Remove models", role: .destructive) { model.removeModels() } }
+    }
 }
 
 @MainActor

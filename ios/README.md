@@ -1,4 +1,6 @@
-# MLX Peer worker feasibility build
+# MLX Peer iPhone companion and worker
+
+Normal launches open the USB companion screen. Pair once using its six-digit code, select your model in the native Mac app, and let the Mac transfer the phone's weights automatically. See the [companion setup guide](../docs/COMPANION.md). The original fixture/self-test launch arguments remain available for development. App Store and TestFlight distribution are not configured yet.
 
 This package executes an assigned contiguous range of **dense Qwen2 / Qwen2.5 transformer layers**, using MLX Swift, with a local KV cache. It never constructs embeddings, an output head, or unassigned layers. It supports local fixture execution and an opt-in USB developer transport. [Live USB stage execution and small-model Mac–iPhone generation have passed](../docs/USB_PROBE.md); A subsequent [Qwen3.8-27B exploratory split](../docs/QWEN38_SPLIT.md) also generated text; its strict prefill parity and sustained capacity validation remain open.
 

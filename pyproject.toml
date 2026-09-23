@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mlx-peer-experiment"
-version = "0.1.0"
+version = "0.2.0a1"
 description = "Capacity-first Mac/iPhone model partitioning experiments for MLX"
 readme = "README.md"
 requires-python = ">=3.12"

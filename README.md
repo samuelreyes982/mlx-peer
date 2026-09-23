@@ -1,8 +1,16 @@
 # MLX Peer
 
-**Experimental LLM inference across an Apple Silicon Mac and an iPhone over USB.**
+**Local AI across your Mac and iPhone. Put the hardware you already own to work together.**
+
+The **0.2 companion preview** adds a native Mac chat app, an iPhone pairing screen, one-time USB pairing, automatic model preparation, and verified, resumable model transfers. Choose a supported local Qwen2 / Qwen2.5 folder on your Mac; the iPhone computes its assigned layers while the Mac runs the rest.
+
+[Download the Mac preview](https://github.com/samuelreyes982/mlx-peer/releases) · [Install and pair](docs/COMPANION.md) · [Build the iPhone app](ios/README.md#run-on-a-physical-iphone)
+
+**Developer preview:** Apple Silicon only. The Mac ZIP includes its runtime but is not yet Developer ID signed/notarized. The iPhone app currently installs through Xcode; there is no App Store or public TestFlight release yet. Short conversations, supported small models, and foreground USB sharing only. Read the [requirements and limits](docs/COMPANION.md) before downloading.
 
 MLX Peer partitions a language model into device-specific weight files. A Python coordinator runs the Mac's assigned layers while a Swift/MLX iPhone worker executes its own layers and retains its local model state. The goal is to study whether a nearby phone can extend the practical capacity of a memory-constrained Mac.
+
+Our longer-term aim is to make existing personal devices more useful before asking people to buy more hardware. Reduced energy use, mining, data-center demand, or electronic waste are goals to investigate, not measured benefits of this preview.
 
 Built with **Python · Swift / SwiftUI · MLX · Metal**. A community project by [Samuel Reyes](https://github.com/samuelreyes982); not affiliated with Apple.
 
@@ -41,6 +49,8 @@ flowchart LR
 Machine-readable measurements accompany the reports. Model weights, private device identifiers, authentication tokens, and generated artifacts are not included.
 
 ## Getting started
+
+For the native companion app, follow the [Mac + iPhone quick start](docs/COMPANION.md). The commands below are for development and the original experiments.
 
 The full experiment requires Apple Silicon, Python 3.12, Xcode with the Metal Toolchain and Swift 6.3, and a physical iPhone for the remote stage. Tested versions and reproduction details are in the [developer guide](docs/DEVELOPMENT.md#development-environment-and-dependencies).
 
@@ -89,6 +99,7 @@ Physical iPhone tests and numerical parity checks are separate from those comman
 | `src/mlx_peer/` | Checkpoint inspection, sharding, coordination, and transport |
 | `ios/Sources/` | Swift worker, model stages, and Metal recurrent kernel |
 | `ios/App/` | Foreground SwiftUI app and Xcode project |
+| `macos/` | Native Mac UI and bundled engine specification |
 | `scripts/` | Baseline recording, USB benchmarking, and hybrid validation |
 | `tests/` | Portable and MLX-dependent Python checks |
 | `docs/` | Reproduction guides, measurements, and known limitations |

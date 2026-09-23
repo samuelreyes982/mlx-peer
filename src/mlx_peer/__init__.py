@@ -1,3 +1,3 @@
-"""Experimental capacity tooling; network inference is not implemented yet."""
+"""Local model partitioning and USB Mac/iPhone companion inference."""
 
-__version__ = "0.1.0"
+__version__ = "0.2.0a1"
