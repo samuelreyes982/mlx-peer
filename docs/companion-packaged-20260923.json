@@ -1,0 +1,59 @@
+{
+  "date": "2026-09-23",
+  "model": "Qwen2.5-0.5B-Instruct",
+  "transport": "USB",
+  "checks": [
+    "Packaged engine reused pairing over USB",
+    "Packaged app generated an arithmetic response",
+    "In-progress generation cancelled through app IPC",
+    "Chat worked immediately after cancellation",
+    "Long prompt rejected without disconnecting",
+    "Reconnect and cached model reload produced another response"
+  ],
+  "version": "0.2.0-alpha.2",
+  "model_setup": {
+    "event": "model_ready",
+    "name": "Qwen2.5-0.5B-Instruct",
+    "phone_layers": 4,
+    "context": 512,
+    "mac_weight_bytes": 868766464,
+    "iphone_weight_bytes": 119299072,
+    "seconds": 7.9292323749978095
+  },
+  "chat": {
+    "event": "generation_done",
+    "text": "2 + 2 equals 4.",
+    "tokens": 8,
+    "seconds": 2.1662955829960993,
+    "cancelled": false
+  },
+  "cancellation": {
+    "tokens": 3,
+    "cancelled": true,
+    "seconds": 0.22255404099996667
+  },
+  "after_cancel": {
+    "event": "generation_done",
+    "text": "Hello! How can I assist you today?",
+    "tokens": 9,
+    "seconds": 0.26957291600410827,
+    "cancelled": false
+  },
+  "reconnect_chat": {
+    "event": "generation_done",
+    "text": "6",
+    "tokens": 1,
+    "seconds": 0.23280174999672454,
+    "cancelled": false
+  },
+  "passed": true,
+  "native_ui": {
+    "passed": true,
+    "prompt": "What is 12 + 7? Answer in one short sentence.",
+    "response": "The sum of 12 and 7 is 19.",
+    "generated_tokens": 14,
+    "pairing": "Saved pairing reused through Connect iPhone button",
+    "model_selection": "Native folder picker",
+    "load": "Load on both devices button"
+  }
+}

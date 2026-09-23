@@ -9,7 +9,7 @@ This is a developer preview. The Mac download includes Python, MLX, and its othe
 - An Apple Silicon Mac running macOS 14 or later. Intel Macs are not supported.
 - A compatible physical iPhone running iOS 17 or later, with enough free RAM and storage. The physical validation device is an iPhone 16; other models have not been validated.
 - A USB data cable supported by your devices. USB-C or Lightning depends on the iPhone; a charging-only cable will not work.
-- A complete, unquantized dense Qwen2 / Qwen2.5 model folder: `config.json`, `tokenizer.json`, tokenizer configuration, and `.safetensors` weights (or their index). Start with a small model such as Qwen2.5-0.5B. Obtain it separately under its own license.
+- A complete, unquantized dense Qwen2 / Qwen2.5 model folder: `config.json`, `tokenizer.json`, tokenizer configuration, and `.safetensors` weights (or their index). For chat, start with a small instruction-tuned model such as [Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct). Base checkpoints are for text completion and can produce repetitive responses when given chat templates. Obtain it separately under its own license.
 
 GGUF, quantized checkpoints, Qwen3, hybrid models, adapters, image/audio models, and arbitrary architectures are not supported by this companion release. BF16 / FP32 input is converted to FP16. The original model stays unchanged. Prepared copies use additional disk space on the Mac and iPhone.
 

@@ -20,4 +20,4 @@ exe = EXE(pyz, a.scripts, [], exclude_binaries=True, name='mlx-peer-engine', deb
           bootloader_ignore_signals=False, strip=False, upx=False, console=True, target_arch='arm64')
 coll = COLLECT(exe, a.binaries, a.datas, strip=False, upx=False, name='mlx-peer-engine')
 app = BUNDLE(coll, name='MLX Peer Engine.app', bundle_identifier='dev.mlxpeer.engine',
-             info_plist={'LSUIElement': True, 'CFBundleShortVersionString': '0.2.0', 'CFBundleVersion': '2', 'LSMinimumSystemVersion': '14.0'})
+             info_plist={'LSUIElement': True, 'CFBundleShortVersionString': '0.2.0', 'CFBundleVersion': '3', 'LSMinimumSystemVersion': '14.0'})

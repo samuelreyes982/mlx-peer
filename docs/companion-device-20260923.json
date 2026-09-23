@@ -1,0 +1,81 @@
+{
+  "version": "0.2.0-alpha.2",
+  "model": "Qwen2.5-0.5B",
+  "date": "2026-09-23",
+  "checks": [
+    "Unpaired access rejected",
+    "First pairing accepted / credentials persisted",
+    "Model prepared, transferred, hash verified, and loaded",
+    "Repeat model transfer sent zero file chunks",
+    "Prefill and cached continuations match full FP16 Mac reference",
+    "Saved pairing reconnects without a code",
+    "Cancellation resets session safely",
+    "Generation succeeds after cancellation"
+  ],
+  "phone_stage": {
+    "atol": 0.01,
+    "rtol": 0.01,
+    "checks": [
+      {
+        "tokens": 4,
+        "max_abs_error": 0.03125,
+        "passed": true
+      },
+      {
+        "tokens": 1,
+        "max_abs_error": 0.001708984375,
+        "passed": true
+      },
+      {
+        "tokens": 1,
+        "max_abs_error": 0.00390625,
+        "passed": true
+      }
+    ]
+  },
+  "parity": {
+    "atol": 0.05,
+    "rtol": 0.02,
+    "basis": "Existing scripts/benchmark_usb.py full-model FP16 criterion",
+    "checks": [
+      {
+        "tokens": 4,
+        "max_abs_error": 0.0390625,
+        "passed": true,
+        "stricter_atol_003_passed": false,
+        "argmax_matches": true
+      },
+      {
+        "tokens": 1,
+        "max_abs_error": 0.0234375,
+        "passed": true,
+        "stricter_atol_003_passed": true,
+        "argmax_matches": true
+      },
+      {
+        "tokens": 1,
+        "max_abs_error": 0.0234375,
+        "passed": true,
+        "stricter_atol_003_passed": true,
+        "argmax_matches": true
+      }
+    ]
+  },
+  "initial_stricter_probe": {
+    "atol": 0.03,
+    "rtol": 0.02,
+    "max_abs_error": 0.0390625,
+    "passed": false
+  },
+  "generation": {
+    "event": "generation_done",
+    "text": "\tendif\n\tendif\n\tendif\n\tendif\n\tendif\n\tendif\n\tendif\n\tendif\n\tendif\n\tendif\n\tendif\n\tendif\n",
+    "tokens": 24,
+    "seconds": 0.7557444999984,
+    "cancelled": false
+  },
+  "passed": true,
+  "cached_model_load_seconds": 0.8579693330029841,
+  "scope": "Small base-model numerical and connection checks; chat text is not a quality result.",
+  "base_model_behavior": "The repeated chat-template output was reproduced by a full FP16 Mac-only reference. A plain completion prompt returned 4. Use an instruction-tuned checkpoint for the chat UI."
+}

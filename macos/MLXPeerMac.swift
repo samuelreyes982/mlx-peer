@@ -113,7 +113,7 @@ final class DesktopModel: ObservableObject {
     func disconnect() { busy = true; send(["command": "disconnect"]) }
     func selectModel() {
         let panel = NSOpenPanel(); panel.canChooseDirectories = true; panel.canChooseFiles = false; panel.allowsMultipleSelection = false
-        panel.message = "Choose a local Qwen2 / Qwen2.5 folder with config.json, tokenizer.json, and safetensors weights."
+        panel.message = "Choose a local Qwen2 / Qwen2.5 folder with config.json, tokenizer.json, and safetensors weights. An Instruct model is recommended for chat."
         panel.prompt = "Choose model"
         if panel.runModal() == .OK, let url = panel.url {
             modelURL = url; modelName = url.lastPathComponent; loaded = false; allocation = ""; messages = []
@@ -178,7 +178,7 @@ struct DesktopView: View {
                     Label("2. Choose a local model", systemImage: "folder").font(.headline)
                     Text(model.modelName).font(.callout.weight(.medium)).lineLimit(2)
                     Button("Choose model folder…", action: model.selectModel).disabled(model.busy)
-                    Text("Qwen2 / Qwen2.5 safetensors with tokenizer files. FP16, BF16, or FP32 input; this preview prepares FP16 weights.").font(.caption).foregroundStyle(.secondary)
+                    Text("Qwen2 / Qwen2.5 safetensors with tokenizer files. Choose an Instruct model for chat. FP16, BF16, or FP32 input; prepares FP16 weights.").font(.caption).foregroundStyle(.secondary)
                     Button("Load on both devices", action: model.load).disabled(!model.connected || model.modelURL == nil || model.busy)
                     if !model.allocation.isEmpty { Text(model.allocation).font(.caption.monospacedDigit()).foregroundStyle(.secondary) }
                 }

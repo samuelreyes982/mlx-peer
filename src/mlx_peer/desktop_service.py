@@ -117,7 +117,7 @@ class Engine:
                 raise ValueError("Invalid conversation message")
         maximum = max(1, min(int(max_tokens), 256))
         if getattr(self.tokenizer, "chat_template", None):
-            ids = self.tokenizer.apply_chat_template(messages, add_generation_prompt=True, tokenize=True)
+            ids = self.tokenizer.apply_chat_template(messages, add_generation_prompt=True, tokenize=True, return_dict=False)
         else:
             prompt = "\n".join(("Question: " if m["role"] == "user" else "Answer: ") + m["content"] for m in messages) + "\nAnswer:"
             ids = self.tokenizer.encode(prompt, add_special_tokens=False)
@@ -183,7 +183,7 @@ def main():
             except Exception as error: emit("error", message=str(error))
         engine.cancelled.set(); finished.set()
     threading.Thread(target=read_commands, daemon=True).start()
-    emit("ready", version="0.2.0-alpha.1")
+    emit("ready", version="0.2.0-alpha.2")
     try:
         while not finished.is_set():
             try: command = commands.get(timeout=5)

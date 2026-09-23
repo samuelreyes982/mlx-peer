@@ -6,6 +6,8 @@ The **0.2 companion preview** adds a native Mac chat app, an iPhone pairing scre
 
 [Download the Mac preview](https://github.com/samuelreyes982/mlx-peer/releases) · [Install and pair](docs/COMPANION.md) · [Build the iPhone app](ios/README.md#run-on-a-physical-iphone)
 
+**A direct USB cable connection is required. Wi-Fi inference is not supported.** For conversations, choose a supported **Instruct** checkpoint; base checkpoints are intended for text completion.
+
 **Developer preview:** Apple Silicon only. The Mac ZIP includes its runtime but is not yet Developer ID signed/notarized. The iPhone app currently installs through Xcode; there is no App Store or public TestFlight release yet. Short conversations, supported small models, and foreground USB sharing only. Read the [requirements and limits](docs/COMPANION.md) before downloading.
 
 MLX Peer partitions a language model into device-specific weight files. A Python coordinator runs the Mac's assigned layers while a Swift/MLX iPhone worker executes its own layers and retains its local model state. The goal is to study whether a nearby phone can extend the practical capacity of a memory-constrained Mac.
