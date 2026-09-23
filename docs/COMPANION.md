@@ -2,7 +2,7 @@
 
 MLX Peer 0.2 adds a native Mac app and an iPhone companion. Select a model already on your Mac; the app prepares each device's assigned weights, transfers the iPhone share over USB, checks its SHA-256 hashes, and runs a short conversation across both devices.
 
-This is a developer preview. The Mac download includes Python, MLX, and its other runtime dependencies. No separate Python installation, Terminal server, manual model copying, cloud account, or model download is required to use that app. The iPhone app currently requires an Xcode development installation; there is no App Store or public TestFlight build yet.
+This is a developer preview. The Mac download includes Python, MLX, and its other runtime dependencies, so no separate Python installation or Terminal server is needed. Supply a supported model you obtained separately; no model is bundled. The app prepares and transfers the iPhone weights automatically. No cloud account is needed for inference. The iPhone app currently requires an Xcode development installation; there is no App Store or public TestFlight build yet.
 
 ## Requirements
 
@@ -77,4 +77,6 @@ The iPhone project requires Swift 6.3 / the tested Xcode toolchain and the pinne
 
 ## Still required for public consumer distribution
 
-Developer ID signing and notarization for the Mac; iPhone icons, distribution signing, archive validation, App Store Connect setup, privacy disclosures, TestFlight testing, and App Review. A GitHub download does not install the iPhone app automatically or replace Apple's distribution requirements.
+The iPhone icon, Apple Distribution-signed IPA, local archive checks, App Store Connect draft, screenshots, and published privacy responses are prepared. The Release app passed physical USB pairing, generation, cancellation, and reconnection checks with the packaged Mac engine. See the [release preparation record](../app-store/README.md).
+
+Remaining work includes Developer ID signing and notarization for the Mac, authenticated iPhone build upload and Apple processing, TestFlight installation testing, final store settings and reviewer contact, and App Review. A GitHub download does not install the iPhone app automatically or replace Apple's distribution requirements.
