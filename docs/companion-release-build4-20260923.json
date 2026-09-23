@@ -1,0 +1,53 @@
+{
+  "date": "2026-09-23",
+  "model": "Qwen2.5-0.5B-Instruct",
+  "transport": "USB",
+  "ios_version": "0.2.0",
+  "ios_build": "4",
+  "mac_bundle": "0.2.0-alpha.3",
+  "checks": [
+    "Packaged engine reused pairing over USB",
+    "Packaged app generated an arithmetic response",
+    "In-progress generation cancelled through app IPC",
+    "Chat worked immediately after cancellation",
+    "Long prompt rejected without disconnecting",
+    "Reconnect and cached model reload produced another response"
+  ],
+  "version": "0.2.0-alpha.2",
+  "model_setup": {
+    "event": "model_ready",
+    "name": "Qwen2.5-0.5B-Instruct",
+    "phone_layers": 4,
+    "context": 512,
+    "mac_weight_bytes": 868766464,
+    "iphone_weight_bytes": 119299072,
+    "seconds": 2.1814048330052174
+  },
+  "chat": {
+    "event": "generation_done",
+    "text": "2 + 2 equals 4.",
+    "tokens": 8,
+    "seconds": 0.30552000000170665,
+    "cancelled": false
+  },
+  "cancellation": {
+    "tokens": 3,
+    "cancelled": true,
+    "seconds": 0.12774858299962943
+  },
+  "after_cancel": {
+    "event": "generation_done",
+    "text": "Hello! How can I assist you today?",
+    "tokens": 9,
+    "seconds": 0.2454460829976597,
+    "cancelled": false
+  },
+  "reconnect_chat": {
+    "event": "generation_done",
+    "text": "6",
+    "tokens": 1,
+    "seconds": 0.10157433299900731,
+    "cancelled": false
+  },
+  "passed": true
+}

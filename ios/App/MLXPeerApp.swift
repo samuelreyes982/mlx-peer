@@ -6,9 +6,13 @@ import MLXPeerWorker
 struct MLXPeerApp: App {
     var body: some Scene {
         WindowGroup {
+            #if DEBUG
             if ProcessInfo.processInfo.arguments.contains(where: { ["--run-self-test", "--run-fixture", "--serve-fixture"].contains($0) }) {
                 WorkerView()
             } else { CompanionView() }
+            #else
+            CompanionView()
+            #endif
         }
     }
 }
@@ -82,19 +86,16 @@ struct CompanionView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 26) {
-                    HStack(spacing: 18) {
-                        Image(systemName: "laptopcomputer").font(.system(size: 42))
-                        Image(systemName: "cable.connector.horizontal").foregroundStyle(.blue)
-                        Image(systemName: "iphone").font(.system(size: 42))
-                    }.frame(maxWidth: .infinity).padding(.vertical, 20).foregroundStyle(.blue)
+                    Image("PeerMark").resizable().frame(width: 80, height: 80)
+                        .clipShape(RoundedRectangle(cornerRadius: 20)).accessibilityHidden(true)
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("A little more intelligence.\nWith what you own.").font(.largeTitle.bold())
+                        Text("Local AI.\nShared power.").font(.largeTitle.bold())
                         Text("Your Mac and iPhone share a local model. Your iPhone runs part of the computation over USB.").foregroundStyle(.secondary)
                     }
                     VStack(alignment: .leading, spacing: 16) {
                         Label(model.paired ? "Mac paired" : "Pair your Mac", systemImage: model.paired ? "checkmark.shield.fill" : "link").font(.headline)
                         if model.active && !model.paired {
-                            Text(model.code).font(.system(size: 44, weight: .semibold, design: .monospaced)).tracking(6).accessibilityLabel("Pairing code \(model.code)")
+                            Text(model.code).font(.system(size: 44, weight: .semibold, design: .monospaced)).tracking(6).minimumScaleFactor(0.6).lineLimit(1).accessibilityLabel("Pairing code \(model.code)")
                             Text("Enter this code in MLX Peer on your Mac. The code expires after five minutes; restart sharing for a new code.").font(.footnote).foregroundStyle(.secondary)
                         }
                         Text(model.status).font(.callout).accessibilityIdentifier("connectionStatus")
@@ -107,12 +108,16 @@ struct CompanionView: View {
                         Label("No cloud inference or account required.", systemImage: "lock.shield")
                     }.font(.subheadline).foregroundStyle(.secondary)
                     VStack(alignment: .leading, spacing: 12) {
+                        NavigationLink { SetupGuideView() } label: { Label("Set up your Mac & iPhone", systemImage: "cable.connector") }
+                        NavigationLink { PrivacyView() } label: { Label("Privacy & data", systemImage: "hand.raised") }
                         Button("Pair a new Mac") { confirmForget = true }.disabled(model.active || model.stopping)
                         Button("Remove saved models", role: .destructive) { confirmRemoval = true }.disabled(model.active || model.stopping)
-                        Text("Stop sharing to manage pairing and storage. Preview 0.2 · Qwen2 / Qwen2.5 · FP16").font(.caption).foregroundStyle(.secondary)
+                        Text("Stop sharing to manage pairing and storage. Qwen2 / Qwen2.5 · FP16").font(.caption).foregroundStyle(.secondary)
+                        Text("Version \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "")").font(.caption).foregroundStyle(.secondary)
                     }
                 }.padding(24)
             }.navigationTitle("MLX Peer")
+                .toolbar { ToolbarItem(placement: .topBarTrailing) { NavigationLink("Help") { SetupGuideView() } } }
         }
         .onAppear { model.start() }
         .onChange(of: scenePhase) { _, phase in if phase == .background { model.stop() } }
@@ -122,6 +127,71 @@ struct CompanionView: View {
     }
 }
 
+struct SetupGuideView: View {
+    var body: some View {
+        List {
+            Section("One model. Two devices.") {
+                Text("MLX Peer is a wired companion for an Apple Silicon Mac. Chat on your Mac; this iPhone runs the model layers assigned to it. A Mac, its companion app, and a USB data cable are required.")
+            }
+            Section("1 · Get the Mac app") {
+                Text("Download MLX Peer for Apple Silicon from the project's GitHub releases. macOS 14 or later is required.")
+                Link("Mac downloads & installation", destination: URL(string: "https://github.com/samuelreyes982/mlx-peer/releases")!)
+            }
+            Section("2 · Connect with USB") {
+                Text("Connect this iPhone directly to your Mac with a USB data cable. Unlock the phone and accept Apple's Trust This Computer prompt if it appears. Keep MLX Peer open on the phone while sharing. Wi-Fi pairing is not supported.")
+            }
+            Section("3 · Pair once") {
+                Text("Start sharing on this iPhone. In the Mac app, select this phone and enter the six-digit code shown here. Pairing is remembered until you choose Pair a new Mac. Only pair with a Mac you trust.")
+            }
+            Section("4 · Choose a local model") {
+                Text("On your Mac, choose a supported Hugging Face model folder. Start with Qwen2.5-0.5B-Instruct. The companion supports dense Qwen2 and Qwen2.5 checkpoints prepared as FP16. GGUF and quantized checkpoints are not supported in this flow.")
+                Text("Your Mac sends the assigned weights over USB, checks their integrity, and runs inference across both devices. Models are downloaded separately; no model is included in this app.")
+            }
+            Section("If it doesn't connect") {
+                Text("Check that your cable carries data, the phone is unlocked, and this app is open. Restart sharing if the code has expired. If the phone gets too warm or runs low on memory, stop sharing, let it cool, and select fewer phone layers or a smaller model on your Mac.")
+                Text("A USB-C connector does not make an iPhone a Thunderbolt device. Cable and device speeds vary. MLX Peer does not promise faster inference, lower power use, or support for every model.")
+                Link("Setup guide & troubleshooting", destination: URL(string: "https://github.com/samuelreyes982/mlx-peer/blob/main/docs/SUPPORT.md")!)
+            }
+        }.navigationTitle("Get connected").navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct PrivacyView: View {
+    var body: some View {
+        List {
+            Section("Your devices. Your computation.") {
+                Text("MLX Peer by Samuel Reyes does not send your prompts, model files, or computation to the developer or an AI cloud service. There are no ads, analytics SDKs, tracking, or MLX Peer accounts.")
+            }
+            Section("What the iPhone stores") {
+                Text("The app stores a random pairing credential, a device identifier used for that pairing, and model files received from your Mac. They stay in this app's storage. Model and pairing storage are excluded from iCloud backup.")
+                Text("During inference, intermediate numerical results travel between your Mac and iPhone over USB. Treat these as potentially sensitive. Pair only with your own trusted Mac. The app does not add end-to-end encryption to the USB transport.")
+            }
+            Section("You control sharing") {
+                Text("Stop sharing closes the connection. Backgrounding or locking the phone also stops sharing. After stopping, use Pair a new Mac to revoke pairing or Remove saved models to delete weights from this phone. Deleting the iPhone app removes its local data. Your Mac's files are managed separately.")
+            }
+            Section("External links & support") {
+                Text("Opening GitHub or a model provider uses that service's privacy practices. Information you voluntarily post in a public GitHub issue is public; never include prompts, pairing codes, credentials, or personal files. Apple may handle diagnostics according to your device's sharing settings.")
+                Link("Full privacy policy", destination: URL(string: "https://github.com/samuelreyes982/mlx-peer/blob/main/docs/PRIVACY.md")!)
+                Link("Support", destination: URL(string: "https://github.com/samuelreyes982/mlx-peer/blob/main/docs/SUPPORT.md")!)
+                NavigationLink("Open-source acknowledgements") { AcknowledgementsView() }
+            }
+        }.navigationTitle("Privacy & data").navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct AcknowledgementsView: View {
+    private var text: String {
+        guard let url = Bundle.main.url(forResource: "Acknowledgements", withExtension: "txt"),
+              let content = try? String(contentsOf: url, encoding: .utf8) else { return "MLX Peer uses MLX and MLX Swift. See the project repository for third-party licenses." }
+        return content
+    }
+    var body: some View {
+        ScrollView { Text(text).font(.footnote).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading).padding() }
+            .navigationTitle("Acknowledgements").navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+#if DEBUG
 @MainActor
 final class WorkerViewModel: ObservableObject {
     @Published var busy = false
@@ -255,3 +325,4 @@ struct WorkerView: View {
         }
     }
 }
+#endif

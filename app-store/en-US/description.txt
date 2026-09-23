@@ -1,0 +1,28 @@
+Local AI. Shared power.
+
+MLX Peer connects your iPhone to your Apple Silicon Mac over a USB data cable, so both devices can run parts of a supported local AI model. Chat on your Mac while your iPhone computes the model layers assigned to it.
+
+PAIR ONCE
+Enter the iPhone's six-digit pairing code in the Mac app. Your devices remember the pairing for later sessions. Revoke it from the iPhone whenever you need to.
+
+BRING YOUR OWN MODEL
+Choose a supported model folder on your Mac. MLX Peer prepares the assigned layers and transfers them to the iPhone over USB. Saved model files can be reused without transferring them again.
+
+COMPUTATION STAYS LOCAL
+No MLX Peer account, ads, analytics SDKs, or cloud inference. Your own devices handle the model computation. The developer does not receive your prompts or model files.
+
+STAY IN CONTROL
+Start or stop sharing from the phone. Remove saved model weights or pair a different Mac after stopping. In-app setup instructions explain the cable connection, supported models, and troubleshooting.
+
+REQUIREMENTS
+• Apple Silicon Mac with macOS 14 or later and the separate MLX Peer Mac companion.
+• iPhone with iOS 17 or later, connected directly to the Mac with a USB data cable.
+• Keep the iPhone app open and the phone unlocked while sharing.
+• A separately downloaded, supported dense Qwen2 or Qwen2.5 model. Start with Qwen2.5-0.5B-Instruct. The Mac prepares FP16 weights.
+• Available memory and storage on both devices. Model size and phone temperature can limit use.
+
+This iPhone app is a compute companion, not a standalone chatbot. Chat is displayed in the Mac app. Wi-Fi pairing, GGUF, quantized checkpoints, and arbitrary model architectures are not supported in this companion flow. No model is included. A USB-C connector does not imply Thunderbolt support.
+
+Our aim is to make more of the hardware you already own. Speed, energy savings, avoided hardware purchases, and environmental benefits have not been established. Local AI can produce incorrect answers; check important output.
+
+Created by Samuel Reyes. Built with MLX. Not affiliated with Apple or the model providers.

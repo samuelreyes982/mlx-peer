@@ -9,7 +9,7 @@ import importlib.metadata
 import sysconfig
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '0.2.0-alpha.2'
+VERSION = '0.2.0-alpha.3'
 
 
 def run(*args):
@@ -33,10 +33,11 @@ def main():
         '-framework', 'SwiftUI', '-framework', 'AppKit')
     info = {'CFBundleExecutable': 'MLX Peer', 'CFBundleIdentifier': 'dev.mlxpeer.mac',
             'CFBundleName': 'MLX Peer', 'CFBundleDisplayName': 'MLX Peer', 'CFBundlePackageType': 'APPL',
-            'CFBundleShortVersionString': '0.2.0', 'CFBundleVersion': '3',
-            'LSMinimumSystemVersion': '14.0', 'NSHighResolutionCapable': True,
+            'CFBundleShortVersionString': '0.2.0', 'CFBundleVersion': '4',
+            'CFBundleIconFile': 'AppIcon', 'LSMinimumSystemVersion': '14.0', 'NSHighResolutionCapable': True,
             'NSHumanReadableCopyright': '© 2026 Samuel Reyes. MLX Peer and third-party licenses apply.'}
     with (contents / 'Info.plist').open('wb') as stream: plistlib.dump(info, stream)
+    shutil.copy(ROOT / 'macos/AppIcon.icns', contents / 'Resources/AppIcon.icns')
     shutil.copy(ROOT / 'NOTICE', contents / 'Resources/NOTICE.txt')
     shutil.copytree(ROOT / 'licenses', contents / 'Resources/licenses')
     acknowledgements = contents / 'Resources/licenses/Dependencies'
